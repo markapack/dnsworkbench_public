@@ -1,0 +1,47 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>DNSMonks.com</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="keywords" content="dns, dns propagation, check dns, dns check, dns lookup, dns resolution, dns checker" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="/dnsmonksstyle.css">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</head>
+<body class="ml-0">
+<header th:insert="header" />
+
+<div th:insert="common-navbar :: navbar" />
+
+<div class="container">
+    <h1>DNS SOA Records</h1>
+    DNS Start of Authority (SOA) records are records describing important information about the DNS zone such as the
+    contact information, the serial number showing when it was last updated, how long before a zone expires, etc.
+
+    <br><br>
+    E.g.<br>
+    Here we can see the SOA record for <b>redcross.org</b>:
+    <br><br>
+    <code>
+        % dig redcross.org soa +short<br>
+        arcdns1.redcross.org. netops.redcross.org. 2021040612 14400 7200 1209600 3600<br>
+        %
+    </code>
+    <br>
+    Here we can see:
+    <ul>
+        <li>arcdns1.redcross.org. is the primary master nameserver for the zone</li>
+        <li>netops@redcross.org. (SOA records don't specify the @ symbol) is the primary contact for the zone</li>
+        <li>2021040612 is the serial number of the zone</li>
+        <li>14400 is the refresh value, the value used by secondary nameservers to refresh their copy of the zone</li>
+        <li>7200 is the retry value, the number of seconds a secondary should wait before retrying an unreachable master</li>
+        <li>1209600 is when the zone data expires and a secondary server should stop serving the stale data</li>
+        <li>3600 is the number of seconds negative responses should be cached</li>
+    </ul>
+</div>
+<br>
+<footer th:insert="footer :: footer" />
+</body>
+</html>
