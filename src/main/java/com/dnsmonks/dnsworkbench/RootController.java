@@ -1,4 +1,4 @@
-package com.dnsmonks.dnsmwebapp;
+package com.dnsmonks.dnsworkbench;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

@@ -15,10 +15,10 @@
         </Console>
     </Appenders>
     <Loggers>
-        <Logger name="com.dnsmonks.dnsmwebapp" level="debug" additivity="true">
+        <Logger name="com.dnsmonks.dnsworkbench" level="debug" additivity="true">
             <appender-ref ref="console" level="debug" />
         </Logger>
-        <Logger name="com.dnsmonks.dnsmwebapp" level="debug" additivity="true">
+        <Logger name="com.dnsmonks.dnsworkbench" level="debug" additivity="true">
             <appender-ref ref="fileLogger" level="debug" />
         </Logger>
         <Root level="debug" additivity="false">

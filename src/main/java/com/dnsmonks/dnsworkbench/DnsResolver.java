@@ -1,4 +1,4 @@
-package com.dnsmonks.dnsmwebapp;
+package com.dnsmonks.dnsworkbench;
 
 import java.util.ArrayList;
 import java.util.Map;

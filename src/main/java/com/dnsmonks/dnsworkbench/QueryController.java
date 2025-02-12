@@ -1,15 +1,12 @@
-package com.dnsmonks.dnsmwebapp;
+package com.dnsmonks.dnsworkbench;
 
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
 import java.util.*;
 import java.util.concurrent.*;
 import com.google.common.util.concurrent.RateLimiter;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.springframework.stereotype.Controller;

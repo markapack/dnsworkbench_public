@@ -1,4 +1,4 @@
-package com.dnsmonks.dnsmwebapp;
+package com.dnsmonks.dnsworkbench;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

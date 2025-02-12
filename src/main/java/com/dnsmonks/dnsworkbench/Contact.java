@@ -1,4 +1,4 @@
-package com.dnsmonks.dnsmwebapp;
+package com.dnsmonks.dnsworkbench;
 
 public class Contact {
     private long id;

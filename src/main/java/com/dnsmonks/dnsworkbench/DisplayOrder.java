@@ -1,4 +1,4 @@
-package com.dnsmonks.dnsmwebapp;
+package com.dnsmonks.dnsworkbench;
 
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
