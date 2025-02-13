@@ -1,0 +1,81 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>DNSMonks.com</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="keywords" content="dns, dns propagation, check dns, dns check, dns lookup, dns resolution, dns checker" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="/dnsmonksstyle.css">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</head>
+<body class="ml-0">
+<header th:insert="header" />
+
+<div th:insert="common-navbar :: navbar" />
+
+<div class="container">
+    <h1>DNS CNAME Records</h1>
+    DNS CNAME records, also known as aliases, indicate a hostname whose IP address is the same as another hostname. The
+    response to a CNAME query is another hostname requiring a second DNS query for that new hostname to determine the
+    IP.
+    <br><br>
+    In plain English, the DNS server is telling you <i>"Hey! The IP address of this host is the same as this other host so
+    you'll need to go look that host up."</i>
+    <br><br>
+    E.g.<br>
+    Here we can see <b>www.dnsmonks.com</b> is a CNAME of <b>dnsmonks.com</b>.
+    <br><br>
+    <code>
+        % dig www.dnsmonks.com CNAME +short<br>
+        dnsmonks.com.<br>
+        %
+    </code>
+    <br>
+
+    If we further queried for the IP address of <b>dnsmonks.com</b>:
+
+    <br><br>
+    <code>
+        % dig dnsmonks.com +short<br>
+        18.188.64.96<br>
+        %
+    </code>
+    <br>
+    We can see that the final IP address of <b>www.dnsmonks.com</b> is 18.188.64.96.
+    <br><br>
+    Unlike A records, CNAMEs cannot have more than one record associated with a particular hostname or owner. I could
+    not for example have an A record for www.dnsmonks.com and a CNAME for www.dnsmonks.com. This introduces interesting
+    hurdles for the apex of a zone (e.g. dnsmonks.com). Because the apex of a zone always contains at least one NS
+    record and one SOA record, you cannot have (without some behind the scenes magic) a CNAME at the apex of a zone.
+    <br><br>
+    In practice, DNS is typically smart enough to return a CNAME even if you request an A record where only a CNAME
+    exists.
+    <br><br>
+    <code>
+        % dig www.dnsmonks.com +short<br>
+        dnsmonks.com.<br>
+        18.188.64.96<br>
+        %
+    </code>
+    <br>
+    Here, we didn't specify a CNAME query in our dig command. We didn't actually specify which kind of record we wanted
+    which means dig defaulted to querying for an A record. But you can see it figured out that there was a CNAME there
+    and even went ahead and looked up that new hostname's A record to get the final IP.
+    <br><br>
+    It is possible to chain CNAMEs. You could for example:
+    <br><br>
+    <code>
+    dnsmonks.com A 18.188.64.96<br>
+    www.dnsmonks.com CNAME dnsmonks.com.<br>
+    www2.dnsmonks.com CNAME www.dnsmonks.com.<br>
+    </code>
+    <br>
+    This would essentially generate three different DNS lookups. Assuming your DNS query response times are quick, this
+    wouldn't be the end of the world. However generally speaking, you want to avoid CNAME chaining if possible.
+</div>
+<br>
+<footer th:insert="footer :: footer" />
+</body>
+</html>
